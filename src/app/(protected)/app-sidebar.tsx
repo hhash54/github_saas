@@ -1,5 +1,6 @@
 'use client';
 
+
 import {
   Sidebar,
   SidebarContent,
@@ -13,9 +14,12 @@ import {
 } from "@/components/ui/sidebar";
 
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Bot, Presentation, CreditCard } from "lucide-react";
+import { LayoutDashboard, Bot, Presentation, CreditCard, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Image from 'next/image';
+
 const items=[
     {
         title: "Dashboard",
@@ -54,7 +58,11 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible ="icon" variant="floating" >
             <SidebarHeader>
-                Logo
+                <div className="flex items-center gap-2">
+                    <Image src='/logo.png' alt='logo' width={40} height={40}/>
+                    <h1 className="text-xl font-bold text-primary/80">dupli</h1>
+
+                </div>
             </SidebarHeader>
 
             <SidebarContent>
@@ -112,6 +120,16 @@ export function AppSidebar() {
                             </SidebarMenuItem>
                             );
                         })}
+                        <div className="h-2"></div>
+                            <SidebarMenuItem>
+                                <Link href='/create'>
+                                    <Button size='sm' variant={'outline'} className="w-fit"> 
+                                        <Plus/>
+                                        Create Project
+                                    </Button>
+                                </Link>
+
+                            </SidebarMenuItem>
                         </SidebarMenu>
 
                     </SidebarGroupContent>
