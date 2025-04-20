@@ -1,5 +1,10 @@
 'use client';
+// @ts-nocheck
+import { UserButton } from '@clerk/nextjs'
 
+export default function UserButtonClient() {
+  return <UserButton />
+}
 
 import {
   Sidebar,
@@ -10,7 +15,8 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  useSidebar
 } from "@/components/ui/sidebar";
 
 import { cn } from "@/lib/utils";
@@ -19,6 +25,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import useProject from "@/hooks/use-project";
 
 const items=[
     {
@@ -42,19 +49,11 @@ const items=[
         icon: CreditCard,
     },
 ]
-const projects=[
-    {
-        name: 'Project 1'
-    },
-    {
-        name: 'Project 2'
-    },
-    {
-        name: 'Project 3'
-    },
-]
+
 export function AppSidebar() {
     const pathname=usePathname( )
+    const{open}=useSidebar()
+    const{projects,projectId,setProjectId}=useProject()
     return (
         <Sidebar collapsible ="icon" variant="floating" >
             <SidebarHeader>
@@ -99,23 +98,27 @@ export function AppSidebar() {
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                        {projects.map((project) => {
+                        {projects?.map((project) => {
                             return (
                             <SidebarMenuItem key={project.name}>
                                 <SidebarMenuButton asChild>
-                                <div className="flex items-center space-x-2">
-                                    <div
-                                    className={cn(
-                                        'rounded-sm border size-6 flex items-center justify-center text-sm bg-white',
-                                        {
-                                        'bg-primary text-white': true // make this dynamic later if needed
-                                        }
-                                    )}
-                                    >
-                                    {project.name[0]}
-                                    </div>
-                                    <span>{project.name}</span>
-                                </div>
+                                        <div onClick={()=>{
+                                            setProjectId(project.id)
+                                        }}>
+                                        <div className="flex items-center space-x-2">
+                                            <div
+                                            className={cn(
+                                                'rounded-sm border size-6 flex items-center justify-center text-sm bg-white',
+                                                {
+                                                'bg-primary text-white': project.id===projectId // make this dynamic later if needed
+                                                }
+                                            )}
+                                            >
+                                            {project.name[0]}
+                                            </div>
+                                            <span>{project.name}</span>
+                                        </div>
+                                        </div>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             );
