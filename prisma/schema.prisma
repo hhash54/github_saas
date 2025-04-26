@@ -35,6 +35,7 @@ model Project{
     deletedAt     DateTime?
     userToProject userToProject[]
     commits       Commit[]
+    sourceCodeEmbeddings SourceCodeEmbedding[]
 }
 model userToProject{
     id            String   @id @default(cuid())

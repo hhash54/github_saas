@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { create } from "domain";
 import { PrismaClient } from '@prisma/client'
 import { pollCommits } from "@/lib/github";
+import { indexGithubRepo } from "@/lib/github-loader";
 
 export const projectRouter=createTRPCRouter({
     createProject: protectedProcedure.input(
@@ -23,6 +24,7 @@ export const projectRouter=createTRPCRouter({
                 }
             }
         })
+        await indexGithubRepo(project.id,input.githubUrl,input.githubToken)
         await pollCommits(project.id)
         return project
 

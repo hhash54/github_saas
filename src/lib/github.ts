@@ -2,6 +2,8 @@ import { Octokit } from "octokit";
 import { db } from "@/server/db";
 import axios from "axios"
 import { aiSummariseCommit } from "./gemini";
+import { generateEmbedding, summariseCode } from './gemini';
+
 
 export const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
