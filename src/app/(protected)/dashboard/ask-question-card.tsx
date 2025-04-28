@@ -8,6 +8,7 @@ import React from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { askQuestion } from './actions'
 import { readStreamableValue } from 'ai/rsc'
+import CodeReferences from './code-references'
 
 
 const AskQuestionCard = () => {
@@ -47,7 +48,8 @@ const AskQuestionCard = () => {
                     </DialogTitle>
                 </DialogHeader>
                 <MDEditor.Markdown source={answer} className='max-w-[70vw] h-full max-h-[40vh] overflow-scroll' />
-
+                <div className='h-4'></div>
+                <CodeReferences filesReferences={filesReferences}/>
                     <Button type='button' onClick={() => setOpen(false)}>
                         Close
                     </Button>
