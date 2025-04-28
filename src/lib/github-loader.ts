@@ -6,18 +6,18 @@ import { db } from "@/server/db";      // <— import your Prisma client
 
 
 
-  // <— import your Prisma client
-
 export const loadGithubRepo = async (githubUrl: string, githubToken?: string) => {
   const loader = new GithubRepoLoader(githubUrl, {
-    accessToken: githubToken || process.env.GITHUB_TOKEN || "",
-    branch: "main",
-    ignoreFiles: ["package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb"],
+    accessToken: githubToken || '',
+    branch: 'main',
+    ignoreFiles: ['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb'],
     recursive: true,
-    unknown: "warn",
+    unknown: 'warn',
     maxConcurrency: 5,
   });
-  return await loader.load();
+
+  const docs = await loader.load();
+  return docs;
 };
 export const indexGithubRepo = async (
     projectId: string,
