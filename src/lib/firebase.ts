@@ -6,12 +6,12 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/st
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBb5fwN5-ONKY9dFhONNGZYwvquDXAXX7c",
-    authDomain: "gh-saas.firebaseapp.com",
-    projectId: "gh-saas",
-    storageBucket: "gh-saas.firebasestorage.app",
-    messagingSenderId: "1032336635546",
-    appId: "1:1032336635546:web:6468ef2d13f0c50a6dd123"
+    apiKey: "AIzaSyDcgxWzvosvOj1DSlxZxK58C7QSexhQHQU",
+    authDomain: "gh-saas-48ef8.firebaseapp.com",
+    projectId: "gh-saas-48ef8",
+    storageBucket: "gh-saas-48ef8.firebasestorage.app",
+    messagingSenderId: "358828552234",
+    appId: "1:358828552234:web:b02ad459b75da6c98ed353"
   };
 
 // Initialize Firebase

@@ -76,5 +76,16 @@ export const projectRouter=createTRPCRouter({
                 createdAt: 'desc', // sorts newest first
             }
             });
-        })
+        }),
+        uploadMeeting: protectedProcedure.input(z.object({  projectId: z.string(), meetingUrl: z.string(), name: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            const meeting = await ctx.db.meeting.create({
+              data: {
+                meetingUrl: input.meetingUrl,
+                projectId: input.projectId,
+                // name: input.name
+              }
+            })
+          })
+          
 })
