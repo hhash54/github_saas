@@ -6,13 +6,13 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/st
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDcgxWzvosvOj1DSlxZxK58C7QSexhQHQU",
-    authDomain: "gh-saas-48ef8.firebaseapp.com",
-    projectId: "gh-saas-48ef8",
-    storageBucket: "gh-saas-48ef8.firebasestorage.app",
-    messagingSenderId: "358828552234",
-    appId: "1:358828552234:web:b02ad459b75da6c98ed353"
-  };
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
