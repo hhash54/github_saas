@@ -83,9 +83,13 @@ export const projectRouter=createTRPCRouter({
               data: {
                 meetingUrl: input.meetingUrl,
                 projectId: input.projectId,
-                // name: input.name
+                 name: input.name,
+                 status:"PROCESSING"
               }
             })
-          })
-          
+          }),
+          getMeetings: protectedProcedure.input(z.object({ projectId: z.string() })).query(async ({ ctx, input }) => {
+            return await ctx.db.meeting.findMany({where: { projectId: input.projectId },include:{issues:true}});
+            })
+
 })

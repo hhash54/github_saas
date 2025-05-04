@@ -7,10 +7,17 @@ import { uploadFile } from '@/lib/firebase'
 import { Presentation, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { api } from '@/trpc/react'
+import useProject from '@/hooks/use-project'
+import { toast } from 'sonner'
 
+import { useRouter } from 'next/navigation'
 
 const MeetingCard = () => {
+  const {project}=useProject()
+  const router=useRouter()
     const [isUploading, setIsUploading] = React.useState(false)
+    const uploadMeeting=api.project.uploadMeeting.useMutation()
     const [progress, setProgress] = React.useState(0)
     const { getRootProps, getInputProps } = useDropzone({
       accept: {
@@ -22,7 +29,22 @@ const MeetingCard = () => {
         setIsUploading(true)
         console.log(acceptedFiles)
         const file = acceptedFiles[0]
-        const downloadURL = await uploadFile(file as File, setProgress)
+        if (!file) return
+        const downloadURL = await uploadFile(file as File, setProgress) as string
+        uploadMeeting.mutate({
+          projectId: project.id,
+          meetingUrl: downloadURL,
+          name: file.name,
+        },{
+          onSuccess: () => {
+            toast.success("Meeting uploaded successfully")
+            router.push('/meetings')
+          },
+          onError: () => {
+            toast.error("Failed to upload meeting")
+          }
+        })
+
         window.alert(downloadURL)
         setIsUploading(false)
       }
