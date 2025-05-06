@@ -1,5 +1,6 @@
 'use server'
 
+import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -27,10 +28,15 @@ export async function createCheckoutSession(credits: number) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/create`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing`,
+      client_reference_id: userId.toString(),
+      metadata: {
+        credits
+      }
+      
     })
   
-    return session.url
+    return redirect(session.url!)
   }
   
